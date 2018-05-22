@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+  ##### node 0 #####
+  cassandra0:
+    image: cassandra:3.11.2
+    container_name: cassandra0
+    ports:
+      - 9042:9042  # cql (native protocol clients)
+      - 9160:9160  # thrift clients
+      - 7199:7199  # jmx
+    env_file:
+      cassandra.env
+    volumes:
+      - ./data0:/var/lib/cassandra
+
+    # Cassandra ulimt recommended settings
+    ulimits:
+      memlock: -1
+      nproc: 32768
+      nofile: 100000
