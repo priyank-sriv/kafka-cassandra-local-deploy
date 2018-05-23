@@ -1,0 +1,39 @@
+version: '3.6'
+
+services:
+  ##### zookeeper - node0 #####
+  zookeeper0:
+    image: zookeeper:3.4.12
+    restart: unless-stopped
+    hostname: zoo0
+    ports:
+      - 2181:2181  # client port
+    env_file:
+      zoo.env
+    volumes:
+      - ./zoo/data:/data
+      - ./zoo/datalog:/datalog
+  
+  ##### kafka - single broker #####
+  kafka0:
+    image: confluentinc/cp-kafka:4.1.1
+    hostname: kafka0
+    ports:
+      - 9092:9092  # client port
+    env_file:
+      kafka.env
+    volumes:
+      - ./kafka-single/data0:/var/lib/kafka/data
+
+  ##### kafka schema registry #####
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:4.1.1
+    hostname: kafka-schema-registry
+    restart: unless-stopped
+    ports:
+      - 9071:8081
+    env_file:
+      schema_registry.env
+    depends_on:
+      - zoo0
+      - kafka0

@@ -13,7 +13,6 @@ services:
       cassandra.env
     volumes:
       - ./data/single/data0:/var/lib/cassandra
-
     # Cassandra ulimt recommended settings
     ulimits:
       memlock: -1

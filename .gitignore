@@ -1,3 +1,12 @@
 .DS_Store
 #cassandra data folders
-cassandra/data*
+compose/cassandra/data*
+kube/cassandra/data*
+
+#kafka data folders
+compose/kafka/kafka-single/data*
+kube/kafka/kafka-single/data*
+
+#zookeeper data folders
+compose/kafka/zoo/data*
+kube/kafka/zoo/data*
